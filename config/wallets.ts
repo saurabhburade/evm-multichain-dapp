@@ -1,5 +1,5 @@
 import { ChainId } from './chainIds'
-import { AbstractConnector } from '@web3-react/abstract-connector'
+
 import { InjectedConnector } from '@web3-react/injected-connector'
 
 export const supportedChainIds = Object.values(ChainId) as number[]

@@ -41,7 +41,7 @@ const Home: NextPage = () => {
     if (account) {
       fetchBalanceData();
     }
-  }, [account, chainId]);
+  });
   const sendEth = async () => {
     const isValidAddress = web3.utils.isAddress(sendAddress);
     if (isValidAddress && Number(sendAmount) > 0 && account) {
@@ -138,43 +138,39 @@ const Home: NextPage = () => {
         <div className="card">
           <h1>Supported Blockchains</h1>
           <div className="flex flex-wrap">
-            {supportedChainIds?.map((chain, idx) => {
-              // @ts-ignore TYPE NEEDS FIXING
+            {supportedChainIds?.map((chain, idx) =>
+              Number(chain) && NETWORK_ICON[Number(chain)] ? (
+                <div
+                  key={Number(chain)}
+                  className="flex items-center rounded-md"
+                  style={{
+                    background: "black",
+                    padding: "0.1em 0.25em",
+                    margin: "1em 0.5em",
+                  }}
+                >
+                  <Image
+                    // @ts-ignore TYPE NEEDS FIXING
 
-              if (Number(chain) && NETWORK_ICON[Number(chain)]) {
-                return (
-                  <div
-                    key={Number(chain)}
-                    className="flex items-center rounded-md"
+                    src={NETWORK_ICON[Number(chain)]}
+                    width={30}
+                    height={30}
+                    alt=""
+                    className="rounded-md"
+                  />
+                  <p
                     style={{
-                      background: "black",
-                      padding: "0.1em 0.25em",
-                      margin: "1em 0.5em",
+                      marginLeft: "0.5em",
+                      fontSize: "12px",
+                      padding: "0em 0.5em",
                     }}
                   >
-                    <Image
-                      // @ts-ignore TYPE NEEDS FIXING
-
-                      src={NETWORK_ICON[Number(chain)]}
-                      width={30}
-                      height={30}
-                      alt=""
-                      className="rounded-md"
-                    />
-                    <p
-                      style={{
-                        marginLeft: "0.5em",
-                        fontSize: "12px",
-                        padding: "0em 0.5em",
-                      }}
-                    >
-                      {/* @ts-ignore TYPE NEEDS FIXING */}
-                      {NETWORK_LABEL[Number(chain)]}
-                    </p>
-                  </div>
-                );
-              }
-            })}
+                    {/* @ts-ignore TYPE NEEDS FIXING */}
+                    {NETWORK_LABEL[Number(chain)]}
+                  </p>
+                </div>
+              ) : null
+            )}
             <p>Note : The chains are extendable to any EVM based Blockchain.</p>
           </div>
         </div>
